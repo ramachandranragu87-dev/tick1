@@ -1,202 +1,249 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Algorithm Analysis - Study Tracker</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algorithm Analysis Tracker</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #f5f6fa;
-            color: #202333;
-            padding: 16px;
-        }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f5f6fa;
+    color: #202333;
+    padding: 14px;
+}
 
-        .container {
-            max-width: 650px;
-            margin: auto;
-        }
+.container {
+    max-width: 650px;
+    margin: auto;
+}
 
-        .header {
-            background: #ffffff;
-            padding: 24px 20px;
-            border-radius: 18px;
-            margin-bottom: 18px;
-            border: 1px solid #e9eaf0;
-        }
+.header {
+    background: #fff;
+    padding: 24px 20px;
+    border-radius: 18px;
+    margin-bottom: 18px;
+    border: 1px solid #e9eaf0;
+}
 
-        .header h1 {
-            font-size: 23px;
-            font-weight: 750;
-            margin-bottom: 6px;
-            letter-spacing: -0.5px;
-        }
+.header h1 {
+    font-size: 23px;
+    font-weight: 750;
+    margin-bottom: 6px;
+}
 
-        .header p {
-            color: #777d90;
-            font-size: 13px;
-        }
+.header p {
+    color: #777d90;
+    font-size: 13px;
+}
 
-        .progress-section {
-            margin-top: 22px;
-        }
+.progress-section {
+    margin-top: 22px;
+}
 
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            font-size: 13px;
-            font-weight: 600;
-        }
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
 
-        .progress-count {
-            color: #6254e8;
-        }
+.progress-count {
+    color: #6254e8;
+}
 
-        .progress-bar {
-            height: 8px;
-            background: #eeeeF5;
-            border-radius: 20px;
-            overflow: hidden;
-        }
+.progress-bar {
+    height: 8px;
+    background: #eeeeF5;
+    border-radius: 20px;
+    overflow: hidden;
+}
 
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: #6254e8;
-            border-radius: 20px;
-            transition: width 0.3s ease;
-        }
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #6254e8;
+    border-radius: 20px;
+    transition: width 0.3s ease;
+}
 
-        .unit {
-            background: #ffffff;
-            border: 1px solid #e9eaf0;
-            border-radius: 16px;
-            margin-bottom: 14px;
-            overflow: hidden;
-        }
+.revision-progress {
+    background: #fff;
+    border: 1px solid #e9eaf0;
+    border-radius: 16px;
+    padding: 17px;
+    margin-bottom: 18px;
+}
 
-        .unit-header {
-            padding: 17px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            background: #ffffff;
-        }
+.revision-progress .progress-fill {
+    background: #f59e0b;
+}
 
-        .unit-title {
-            font-size: 15px;
-            font-weight: 700;
-            line-height: 1.5;
-        }
+.revision-progress .progress-count {
+    color: #d97706;
+}
 
-        .unit-count {
-            font-size: 12px;
-            color: #777d90;
-            white-space: nowrap;
-        }
+.unit {
+    background: #fff;
+    border: 1px solid #e9eaf0;
+    border-radius: 16px;
+    margin-bottom: 14px;
+    overflow: hidden;
+}
 
-        .topic-list {
-            padding: 0 16px 12px;
-        }
+.unit-header {
+    padding: 17px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
 
-        .topic {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 0;
-            border-top: 1px solid #f0f1f5;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
+.unit-title {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+}
 
-        .topic input {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 22px;
-            height: 22px;
-            min-width: 22px;
-            border: 2px solid #d5d8e2;
-            border-radius: 6px;
-            background: #ffffff;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.2s ease;
-        }
+.unit-count {
+    font-size: 12px;
+    color: #777d90;
+    white-space: nowrap;
+}
 
-        .topic input:checked {
-            background: #6254e8;
-            border-color: #6254e8;
-        }
+.topic-list {
+    padding: 0 16px 12px;
+}
 
-        .topic input:checked::after {
-            content: "";
-            position: absolute;
-            left: 6px;
-            top: 2px;
-            width: 5px;
-            height: 10px;
-            border: solid white;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-        }
+.topic {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+    border-top: 1px solid #f0f1f5;
+}
 
-        .topic-name {
-            font-size: 14px;
-            line-height: 1.5;
-            color: #3d4254;
-            flex: 1;
-        }
+.topic-name {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: #3d4254;
+    flex: 1;
+    min-width: 0;
+}
 
-        .topic input:checked + .topic-name {
-            color: #999eae;
-            text-decoration: line-through;
-        }
+.topic.completed .topic-name {
+    color: #999eae;
+    text-decoration: line-through;
+}
 
-        .topic:active {
-            opacity: 0.75;
-        }
+.topic-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
 
-        @media (max-width: 480px) {
-            body {
-                padding: 12px;
-            }
+.check-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
 
-            .header {
-                padding: 21px 17px;
-            }
+.check-control span {
+    font-size: 10px;
+    color: #8a8fa1;
+    font-weight: 600;
+}
 
-            .header h1 {
-                font-size: 21px;
-            }
+.check-control input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #d5d8e2;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    position: relative;
+}
 
-            .unit-header {
-                padding: 16px 14px;
-            }
+.check-control input:checked {
+    background: #6254e8;
+    border-color: #6254e8;
+}
 
-            .topic-list {
-                padding: 0 14px 10px;
-            }
+.check-control.revision input:checked {
+    background: #f59e0b;
+    border-color: #f59e0b;
+}
 
-            .topic {
-                padding: 13px 0;
-                gap: 11px;
-            }
+.check-control input:checked::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
 
-            .topic-name {
-                font-size: 13.5px;
-            }
-        }
-    </style>
+.check-control:active {
+    opacity: 0.7;
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .header {
+        padding: 21px 16px;
+    }
+
+    .header h1 {
+        font-size: 21px;
+    }
+
+    .unit-header {
+        padding: 15px 13px;
+    }
+
+    .topic-list {
+        padding: 0 13px 10px;
+    }
+
+    .topic {
+        gap: 8px;
+        padding: 13px 0;
+    }
+
+    .topic-name {
+        font-size: 12.5px;
+    }
+
+    .topic-controls {
+        gap: 10px;
+    }
+
+    .check-control input {
+        width: 21px;
+        height: 21px;
+    }
+}
+</style>
 </head>
 
 <body>
@@ -205,17 +252,28 @@
 
     <div class="header">
         <h1>Algorithm Analysis</h1>
-        <p>Unit-wise topic completion tracker</p>
+        <p>Unit-wise study and revision tracker</p>
 
         <div class="progress-section">
             <div class="progress-info">
-                <span>Overall Progress</span>
-                <span class="progress-count" id="progressCount">0 / 50</span>
+                <span>Completed Topics</span>
+                <span class="progress-count" id="completionCount">0 / 50</span>
             </div>
 
             <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+                <div class="progress-fill" id="completionFill"></div>
             </div>
+        </div>
+    </div>
+
+    <div class="revision-progress">
+        <div class="progress-info">
+            <span>Revised Topics</span>
+            <span class="progress-count" id="revisionCount">0 / 50</span>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="revisionFill"></div>
         </div>
     </div>
 
@@ -240,7 +298,6 @@ const units = [
             "String Algorithms: Naïve algorithm",
             "Rabin Karp Algorithm",
             "KMP Algorithm",
-            "Manacher's Algorithm"
         ]
     },
 
@@ -258,7 +315,6 @@ const units = [
             "Divide and Conquer: Binary search",
             "Quick sort",
             "Heap sort",
-            "Multiplication of large integer"
         ]
     },
 
@@ -308,13 +364,33 @@ const units = [
 
 ];
 
-const STORAGE_KEY = "algorithmAnalysisProgress";
+const STORAGE_KEY = "algorithmAnalysisRevisionTracker";
 
-let completedTopics = JSON.parse(
+let savedProgress = JSON.parse(
     localStorage.getItem(STORAGE_KEY) || "{}"
 );
 
+let completedTopics = savedProgress.completed || {};
+let revisedTopics = savedProgress.revised || {};
+
 const unitsContainer = document.getElementById("unitsContainer");
+
+const totalTopics = units.reduce(
+    (total, unit) => total + unit.topics.length,
+    0
+);
+
+function saveProgress() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+            completed: completedTopics,
+            revised: revisedTopics
+        })
+    );
+
+}
 
 function renderUnits() {
 
@@ -328,6 +404,11 @@ function renderUnits() {
         const completedInUnit = unit.topics.filter(
             (_, topicIndex) =>
                 completedTopics[`${unitIndex}-${topicIndex}`]
+        ).length;
+
+        const revisedInUnit = unit.topics.filter(
+            (_, topicIndex) =>
+                revisedTopics[`${unitIndex}-${topicIndex}`]
         ).length;
 
         const unitHeader = document.createElement("div");
@@ -351,37 +432,83 @@ function renderUnits() {
 
             const topicKey = `${unitIndex}-${topicIndex}`;
 
-            const label = document.createElement("label");
+            const label = document.createElement("div");
             label.className = "topic";
 
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.checked = Boolean(completedTopics[topicKey]);
+            if (completedTopics[topicKey]) {
+                label.classList.add("completed");
+            }
 
-            const topicName = document.createElement("span");
+            const topicName = document.createElement("div");
             topicName.className = "topic-name";
             topicName.textContent = topic;
 
-            checkbox.addEventListener("change", () => {
+            const controls = document.createElement("div");
+            controls.className = "topic-controls";
 
-                if (checkbox.checked) {
+            const completeLabel = document.createElement("label");
+            completeLabel.className = "check-control";
+
+            const completeCheckbox = document.createElement("input");
+            completeCheckbox.type = "checkbox";
+            completeCheckbox.checked = Boolean(
+                completedTopics[topicKey]
+            );
+
+            const completeText = document.createElement("span");
+            completeText.textContent = "Done";
+
+            completeCheckbox.addEventListener("change", () => {
+
+                if (completeCheckbox.checked) {
                     completedTopics[topicKey] = true;
                 } else {
                     delete completedTopics[topicKey];
                 }
 
-                localStorage.setItem(
-                    STORAGE_KEY,
-                    JSON.stringify(completedTopics)
-                );
-
+                saveProgress();
                 updateProgress();
                 renderUnits();
 
             });
 
-            label.appendChild(checkbox);
+            completeLabel.appendChild(completeCheckbox);
+            completeLabel.appendChild(completeText);
+
+            const revisionLabel = document.createElement("label");
+            revisionLabel.className = "check-control revision";
+
+            const revisionCheckbox = document.createElement("input");
+            revisionCheckbox.type = "checkbox";
+            revisionCheckbox.checked = Boolean(
+                revisedTopics[topicKey]
+            );
+
+            const revisionText = document.createElement("span");
+            revisionText.textContent = "Revision";
+
+            revisionCheckbox.addEventListener("change", () => {
+
+                if (revisionCheckbox.checked) {
+                    revisedTopics[topicKey] = true;
+                } else {
+                    delete revisedTopics[topicKey];
+                }
+
+                saveProgress();
+                updateProgress();
+                renderUnits();
+
+            });
+
+            revisionLabel.appendChild(revisionCheckbox);
+            revisionLabel.appendChild(revisionText);
+
+            controls.appendChild(completeLabel);
+            controls.appendChild(revisionLabel);
+
             label.appendChild(topicName);
+            label.appendChild(controls);
 
             topicList.appendChild(label);
 
@@ -398,24 +525,29 @@ function renderUnits() {
 
 function updateProgress() {
 
-    const totalTopics = units.reduce(
-        (total, unit) => total + unit.topics.length,
-        0
-    );
+    const completedCount = Object.values(completedTopics)
+        .filter(Boolean).length;
 
-    const completedCount = Object.values(completedTopics).filter(
-        Boolean
-    ).length;
+    const revisedCount = Object.values(revisedTopics)
+        .filter(Boolean).length;
 
-    const percentage = totalTopics > 0
-        ? (completedCount / totalTopics) * 100
-        : 0;
+    const completionPercentage =
+        (completedCount / totalTopics) * 100;
 
-    document.getElementById("progressCount").textContent =
+    const revisionPercentage =
+        (revisedCount / totalTopics) * 100;
+
+    document.getElementById("completionCount").textContent =
         `${completedCount} / ${totalTopics}`;
 
-    document.getElementById("progressFill").style.width =
-        `${percentage}%`;
+    document.getElementById("completionFill").style.width =
+        `${completionPercentage}%`;
+
+    document.getElementById("revisionCount").textContent =
+        `${revisedCount} / ${totalTopics}`;
+
+    document.getElementById("revisionFill").style.width =
+        `${revisionPercentage}%`;
 
 }
 
