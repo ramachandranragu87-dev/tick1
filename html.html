@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Analysis - Study Tracker</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f5f6fa;
+            color: #202333;
+            padding: 16px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .header {
+            background: #ffffff;
+            padding: 24px 20px;
+            border-radius: 18px;
+            margin-bottom: 18px;
+            border: 1px solid #e9eaf0;
+        }
+
+        .header h1 {
+            font-size: 23px;
+            font-weight: 750;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: #777d90;
+            font-size: 13px;
+        }
+
+        .progress-section {
+            margin-top: 22px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .progress-count {
+            color: #6254e8;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #eeeeF5;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #6254e8;
+            border-radius: 20px;
+            transition: width 0.3s ease;
+        }
+
+        .unit {
+            background: #ffffff;
+            border: 1px solid #e9eaf0;
+            border-radius: 16px;
+            margin-bottom: 14px;
+            overflow: hidden;
+        }
+
+        .unit-header {
+            padding: 17px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: #ffffff;
+        }
+
+        .unit-title {
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        .unit-count {
+            font-size: 12px;
+            color: #777d90;
+            white-space: nowrap;
+        }
+
+        .topic-list {
+            padding: 0 16px 12px;
+        }
+
+        .topic {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-top: 1px solid #f0f1f5;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .topic input {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            min-width: 22px;
+            border: 2px solid #d5d8e2;
+            border-radius: 6px;
+            background: #ffffff;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .topic input:checked {
+            background: #6254e8;
+            border-color: #6254e8;
+        }
+
+        .topic input:checked::after {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .topic-name {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #3d4254;
+            flex: 1;
+        }
+
+        .topic input:checked + .topic-name {
+            color: #999eae;
+            text-decoration: line-through;
+        }
+
+        .topic:active {
+            opacity: 0.75;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .header {
+                padding: 21px 17px;
+            }
+
+            .header h1 {
+                font-size: 21px;
+            }
+
+            .unit-header {
+                padding: 16px 14px;
+            }
+
+            .topic-list {
+                padding: 0 14px 10px;
+            }
+
+            .topic {
+                padding: 13px 0;
+                gap: 11px;
+            }
+
+            .topic-name {
+                font-size: 13.5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Algorithm Analysis</h1>
+        <p>Unit-wise topic completion tracker</p>
+
+        <div class="progress-section">
+            <div class="progress-info">
+                <span>Overall Progress</span>
+                <span class="progress-count" id="progressCount">0 / 50</span>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="unitsContainer"></div>
+
+</div>
+
+<script>
+
+const units = [
+
+    {
+        title: "Unit I: Algorithm Analysis Techniques",
+        topics: [
+            "Notion of an algorithm",
+            "Importance & role of algorithms in computing",
+            "Important problem types",
+            "Analysis of algorithmic efficiency",
+            "Time and Space Complexity",
+            "Asymptotic notations and their properties",
+            "Mathematical analysis for recursive and non-recursive algorithms",
+            "String Algorithms: Naïve algorithm",
+            "Rabin Karp Algorithm",
+            "KMP Algorithm",
+            "Manacher's Algorithm"
+        ]
+    },
+
+    {
+        title: "Unit II: Brute Force and Divide-And-Conquer",
+        topics: [
+            "Brute force: Selection sort",
+            "String matching",
+            "Exhaustive search",
+            "Boyer Moore algorithm",
+            "Travelling salesman problem",
+            "Knapsack problem",
+            "Assignment problem",
+            "Huffman codes and data compression",
+            "Divide and Conquer: Binary search",
+            "Quick sort",
+            "Heap sort",
+            "Multiplication of large integer"
+        ]
+    },
+
+    {
+        title: "Unit III: Dynamic Programming",
+        topics: [
+            "Ugly numbers",
+            "Coin changing problem",
+            "Friends pairing problem",
+            "Golomb sequence",
+            "Warshall's algorithm",
+            "Floyd's algorithm",
+            "Multi stage graph",
+            "Optimal binary search trees",
+            "Fractional Knapsack Problem"
+        ]
+    },
+
+    {
+        title: "Unit IV: Greedy Approach",
+        topics: [
+            "Activity selection problem",
+            "Longest common subsequence",
+            "Sieve of Sundaram",
+            "Assign mice to holes",
+            "Huffman trees",
+            "Sparse matrix",
+            "Bloom filter"
+        ]
+    },
+
+    {
+        title: "Unit V: Backtracking and Branch and Bound",
+        topics: [
+            "Backtracking",
+            "Rat in maze",
+            "Permutation and Combination",
+            "N Queen problem",
+            "Hamiltonian circuit problem",
+            "Subset sum problem",
+            "Graph Coloring",
+            "Assignment problem",
+            "Knapsack problem",
+            "Travelling salesman problem"
+        ]
+    }
+
+];
+
+const STORAGE_KEY = "algorithmAnalysisProgress";
+
+let completedTopics = JSON.parse(
+    localStorage.getItem(STORAGE_KEY) || "{}"
+);
+
+const unitsContainer = document.getElementById("unitsContainer");
+
+function renderUnits() {
+
+    unitsContainer.innerHTML = "";
+
+    units.forEach((unit, unitIndex) => {
+
+        const unitElement = document.createElement("div");
+        unitElement.className = "unit";
+
+        const completedInUnit = unit.topics.filter(
+            (_, topicIndex) =>
+                completedTopics[`${unitIndex}-${topicIndex}`]
+        ).length;
+
+        const unitHeader = document.createElement("div");
+        unitHeader.className = "unit-header";
+
+        const title = document.createElement("div");
+        title.className = "unit-title";
+        title.textContent = unit.title;
+
+        const count = document.createElement("div");
+        count.className = "unit-count";
+        count.textContent = `${completedInUnit}/${unit.topics.length}`;
+
+        unitHeader.appendChild(title);
+        unitHeader.appendChild(count);
+
+        const topicList = document.createElement("div");
+        topicList.className = "topic-list";
+
+        unit.topics.forEach((topic, topicIndex) => {
+
+            const topicKey = `${unitIndex}-${topicIndex}`;
+
+            const label = document.createElement("label");
+            label.className = "topic";
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = Boolean(completedTopics[topicKey]);
+
+            const topicName = document.createElement("span");
+            topicName.className = "topic-name";
+            topicName.textContent = topic;
+
+            checkbox.addEventListener("change", () => {
+
+                if (checkbox.checked) {
+                    completedTopics[topicKey] = true;
+                } else {
+                    delete completedTopics[topicKey];
+                }
+
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify(completedTopics)
+                );
+
+                updateProgress();
+                renderUnits();
+
+            });
+
+            label.appendChild(checkbox);
+            label.appendChild(topicName);
+
+            topicList.appendChild(label);
+
+        });
+
+        unitElement.appendChild(unitHeader);
+        unitElement.appendChild(topicList);
+
+        unitsContainer.appendChild(unitElement);
+
+    });
+
+}
+
+function updateProgress() {
+
+    const totalTopics = units.reduce(
+        (total, unit) => total + unit.topics.length,
+        0
+    );
+
+    const completedCount = Object.values(completedTopics).filter(
+        Boolean
+    ).length;
+
+    const percentage = totalTopics > 0
+        ? (completedCount / totalTopics) * 100
+        : 0;
+
+    document.getElementById("progressCount").textContent =
+        `${completedCount} / ${totalTopics}`;
+
+    document.getElementById("progressFill").style.width =
+        `${percentage}%`;
+
+}
+
+renderUnits();
+updateProgress();
+
+</script>
+
+</body>
+</html>
