@@ -4,556 +4,421 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Algorithm Analysis Tracker</title>
+<title>DBMS Study Tracker</title>
 
 <style>
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #f5f6fa;
-    color: #202333;
-    padding: 14px;
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #f4f6fb;
+    color: #202638;
 }
 
 .container {
-    max-width: 650px;
+    max-width: 850px;
     margin: auto;
 }
 
-.header {
-    background: #fff;
-    padding: 24px 20px;
-    border-radius: 18px;
-    margin-bottom: 18px;
-    border: 1px solid #e9eaf0;
+header {
+    background: #202c45;
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
 }
 
-.header h1 {
-    font-size: 23px;
-    font-weight: 750;
-    margin-bottom: 6px;
+header h1 {
+    margin: 0 0 8px;
 }
 
-.header p {
-    color: #777d90;
-    font-size: 13px;
+header p {
+    color: #cbd5e1;
+    margin: 0;
 }
 
-.progress-section {
-    margin-top: 22px;
-}
-
-.progress-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.progress-count {
-    color: #6254e8;
+.summary {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 20px;
 }
 
 .progress-bar {
-    height: 8px;
-    background: #eeeeF5;
+    height: 12px;
+    background: #e5e7eb;
     border-radius: 20px;
     overflow: hidden;
+    margin: 12px 0;
 }
 
 .progress-fill {
     height: 100%;
     width: 0%;
-    background: #6254e8;
-    border-radius: 20px;
-    transition: width 0.3s ease;
-}
-
-.revision-progress {
-    background: #fff;
-    border: 1px solid #e9eaf0;
-    border-radius: 16px;
-    padding: 17px;
-    margin-bottom: 18px;
-}
-
-.revision-progress .progress-fill {
-    background: #f59e0b;
-}
-
-.revision-progress .progress-count {
-    color: #d97706;
+    background: #16a36a;
+    transition: width 0.3s;
 }
 
 .unit {
-    background: #fff;
-    border: 1px solid #e9eaf0;
-    border-radius: 16px;
-    margin-bottom: 14px;
-    overflow: hidden;
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 3px 12px #00000008;
 }
 
-.unit-header {
-    padding: 17px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.unit-title {
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 1.5;
-}
-
-.unit-count {
-    font-size: 12px;
-    color: #777d90;
-    white-space: nowrap;
-}
-
-.topic-list {
-    padding: 0 16px 12px;
+.unit h2 {
+    margin-top: 0;
+    color: #263a61;
 }
 
 .topic {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 12px 0;
-    border-top: 1px solid #f0f1f5;
+    padding: 13px 0;
+    border-bottom: 1px solid #edf0f4;
+    flex-wrap: wrap;
+}
+
+.topic:last-child {
+    border-bottom: none;
 }
 
 .topic-name {
-    font-size: 13.5px;
-    line-height: 1.5;
-    color: #3d4254;
     flex: 1;
-    min-width: 0;
+    min-width: 150px;
+    font-size: 14px;
 }
 
 .topic.completed .topic-name {
-    color: #999eae;
     text-decoration: line-through;
+    color: #8993a3;
 }
 
-.topic-controls {
+.topic label {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
-}
-
-.check-control {
-    display: flex;
-    flex-direction: column;
     align-items: center;
     gap: 5px;
+    font-size: 12px;
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
 }
 
-.check-control span {
-    font-size: 10px;
-    color: #8a8fa1;
-    font-weight: 600;
-}
-
-.check-control input {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 22px;
-    height: 22px;
-    border: 2px solid #d5d8e2;
-    border-radius: 6px;
-    background: #fff;
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #16a36a;
     cursor: pointer;
-    position: relative;
 }
 
-.check-control input:checked {
-    background: #6254e8;
-    border-color: #6254e8;
+.review {
+    accent-color: #2563eb !important;
 }
 
-.check-control.revision input:checked {
-    background: #f59e0b;
-    border-color: #f59e0b;
+.unit-progress {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 8px;
 }
 
-.check-control input:checked::after {
-    content: "";
-    position: absolute;
-    left: 6px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+button {
+    border: none;
+    border-radius: 9px;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px 5px 5px 0;
 }
 
-.check-control:active {
-    opacity: 0.7;
+.reset {
+    background: #fee2e2;
+    color: #b91c1c;
 }
 
-@media (max-width: 480px) {
+.review-all {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+footer {
+    text-align: center;
+    color: #64748b;
+    font-size: 12px;
+    padding: 20px;
+}
+
+@media(max-width: 500px) {
     body {
-        padding: 10px;
-    }
-
-    .header {
-        padding: 21px 16px;
-    }
-
-    .header h1 {
-        font-size: 21px;
-    }
-
-    .unit-header {
-        padding: 15px 13px;
-    }
-
-    .topic-list {
-        padding: 0 13px 10px;
+        padding: 12px;
     }
 
     .topic {
         gap: 8px;
-        padding: 13px 0;
     }
 
     .topic-name {
-        font-size: 12.5px;
-    }
-
-    .topic-controls {
-        gap: 10px;
-    }
-
-    .check-control input {
-        width: 21px;
-        height: 21px;
+        flex-basis: 100%;
     }
 }
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
-    <div class="header">
-        <h1>Algorithm Analysis</h1>
-        <p>Unit-wise study and revision tracker</p>
+<header>
+    <h1>📚 DBMS Study Tracker</h1>
+    <p>Complete your syllabus • Revise • Achieve your goal</p>
+</header>
 
-        <div class="progress-section">
-            <div class="progress-info">
-                <span>Completed Topics</span>
-                <span class="progress-count" id="completionCount">0 / 50</span>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress-fill" id="completionFill"></div>
-            </div>
-        </div>
+<div class="summary">
+    <h2>Overall Progress</h2>
+    <h1 id="percentage">0%</h1>
+    <div class="progress-bar">
+        <div class="progress-fill" id="overallBar"></div>
     </div>
+    <p id="count">0 / 27 Topics Completed</p>
+    <p id="revisionCount">0 Topics Revised</p>
+    <button class="review-all" onclick="markAllReviewed()">
+        ✓ Mark All Completed Topics as Revised
+    </button>
+    <button class="reset" onclick="resetProgress()">
+        Reset All Progress
+    </button>
+</div>
 
-    <div class="revision-progress">
-        <div class="progress-info">
-            <span>Revised Topics</span>
-            <span class="progress-count" id="revisionCount">0 / 50</span>
-        </div>
+<div id="syllabus"></div>
 
-        <div class="progress-bar">
-            <div class="progress-fill" id="revisionFill"></div>
-        </div>
-    </div>
-
-    <div id="unitsContainer"></div>
+<footer>
+    Your study progress is automatically saved on this device.
+</footer>
 
 </div>
 
 <script>
 
 const units = [
-
-    {
-        title: "Unit I: Algorithm Analysis Techniques",
-        topics: [
-            "Notion of an algorithm",
-            "Importance & role of algorithms in computing",
-            "Important problem types",
-            "Analysis of algorithmic efficiency",
-            "Time and Space Complexity",
-            "Asymptotic notations and their properties",
-            "Mathematical analysis for recursive and non-recursive algorithms",
-            "String Algorithms: Naïve algorithm",
-            "Rabin Karp Algorithm",
-            "KMP Algorithm",
-        ]
-    },
-
-    {
-        title: "Unit II: Brute Force and Divide-And-Conquer",
-        topics: [
-            "Brute force: Selection sort",
-            "String matching",
-            "Boyer Moore algorithm",
-            "Travelling salesman problem",
-            "Knapsack problem",
-            "Assignment problem",
-            "Huffman codes and data compression",
-            "Divide and Conquer: Binary search",
-            "Quick sort",
-            "Heap sort",
-        ]
-    },
-
-    {
-        title: "Unit III: Dynamic Programming",
-        topics: [
-            "Ugly numbers",
-            "Coin changing problem",
-            "Friends pairing problem",
-            "Golomb sequence",
-            "Warshall's algorithm",
-            "Floyd's algorithm",
-            "Multi stage graph",
-            "Optimal binary search trees",
-            "Fractional Knapsack Problem"
-        ]
-    },
-
-    {
-        title: "Unit IV: Greedy Approach",
-        topics: [
-            "Activity selection problem",
-            "Longest common subsequence",
-            "Sieve of Sundaram",
-            "Assign mice to holes",
-            "Huffman trees",
-            "Sparse matrix",
-            "Bloom filter"
-        ]
-    },
-
-    {
-        title: "Unit V: Backtracking and Branch and Bound",
-        topics: [
-            "Backtracking",
-            "Rat in maze",
-            "Permutation and Combination",
-            "N Queen problem",
-            "Hamiltonian circuit problem",
-            "Subset sum problem",
-            "Graph Coloring",
-            "Assignment problem",
-            "Knapsack problem",
-            "Travelling salesman problem"
-        ]
-    }
-
+{
+    name: "UNIT 1 – Database Fundamentals",
+    topics: [
+        "Schema with Types",
+        "ER Diagram",
+        "Relational Algebra",
+        "Database System Architecture"
+    ]
+},
+{
+    name: "UNIT 2 – SQL",
+    topics: [
+        "Aggregate Functions",
+        "Clauses",
+        "Joins",
+        "Subqueries",
+        "Views",
+        "Triggers",
+        "DDL, DML, DQL, TDL, TCL",
+        "ORDER BY and GROUP BY"
+    ]
+},
+{
+    name: "UNIT 3 – Transactions",
+    topics: [
+        "ACID Properties",
+        "Log-Based Protocol"
+    ]
+},
+{
+    name: "UNIT 4 – Storage and Indexing",
+    topics: [
+        "RAID Levels",
+        "Problems on B+ Tree",
+        "Problems on B-Tree",
+        "Hashing (Static)",
+        "Hashing (Dynamic)",
+        "Query Optimization"
+    ]
+},
+{
+    name: "UNIT 5 – NoSQL Databases",
+    topics: [
+        "ClickHouse",
+        "CRUD Operations with MongoDB",
+        "NoSQL with Types"
+    ]
+}
 ];
 
-const STORAGE_KEY = "algorithmAnalysisRevisionTracker";
+let progress = JSON.parse(
+    localStorage.getItem("dbmsTracker")
+) || {};
 
-let savedProgress = JSON.parse(
-    localStorage.getItem(STORAGE_KEY) || "{}"
-);
-
-let completedTopics = savedProgress.completed || {};
-let revisedTopics = savedProgress.revised || {};
-
-const unitsContainer = document.getElementById("unitsContainer");
-
-const totalTopics = units.reduce(
-    (total, unit) => total + unit.topics.length,
-    0
-);
-
-function saveProgress() {
-
+function save() {
     localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({
-            completed: completedTopics,
-            revised: revisedTopics
-        })
+        "dbmsTracker",
+        JSON.stringify(progress)
     );
-
 }
 
-function renderUnits() {
+function render() {
+    const syllabus = document.getElementById("syllabus");
+    syllabus.innerHTML = "";
 
-    unitsContainer.innerHTML = "";
+    let total = 0;
+    let completed = 0;
+    let revised = 0;
 
     units.forEach((unit, unitIndex) => {
 
-        const unitElement = document.createElement("div");
-        unitElement.className = "unit";
+        let unitCompleted = 0;
+        let unitTotal = unit.topics.length;
 
-        const completedInUnit = unit.topics.filter(
-            (_, topicIndex) =>
-                completedTopics[`${unitIndex}-${topicIndex}`]
-        ).length;
+        const section = document.createElement("section");
+        section.className = "unit";
 
-        const revisedInUnit = unit.topics.filter(
-            (_, topicIndex) =>
-                revisedTopics[`${unitIndex}-${topicIndex}`]
-        ).length;
-
-        const unitHeader = document.createElement("div");
-        unitHeader.className = "unit-header";
-
-        const title = document.createElement("div");
-        title.className = "unit-title";
-        title.textContent = unit.title;
-
-        const count = document.createElement("div");
-        count.className = "unit-count";
-        count.textContent = `${completedInUnit}/${unit.topics.length}`;
-
-        unitHeader.appendChild(title);
-        unitHeader.appendChild(count);
-
-        const topicList = document.createElement("div");
-        topicList.className = "topic-list";
+        const heading = document.createElement("h2");
+        heading.textContent = unit.name;
+        section.appendChild(heading);
 
         unit.topics.forEach((topic, topicIndex) => {
 
-            const topicKey = `${unitIndex}-${topicIndex}`;
+            total++;
 
-            const label = document.createElement("div");
-            label.className = "topic";
+            const key = `${unitIndex}-${topicIndex}`;
 
-            if (completedTopics[topicKey]) {
-                label.classList.add("completed");
+            if (!progress[key]) {
+                progress[key] = {
+                    done: false,
+                    revised: false
+                };
             }
 
-            const topicName = document.createElement("div");
-            topicName.className = "topic-name";
-            topicName.textContent = topic;
+            const data = progress[key];
 
-            const controls = document.createElement("div");
-            controls.className = "topic-controls";
+            if (data.done) {
+                completed++;
+                unitCompleted++;
+            }
 
-            const completeLabel = document.createElement("label");
-            completeLabel.className = "check-control";
+            if (data.revised) revised++;
 
-            const completeCheckbox = document.createElement("input");
-            completeCheckbox.type = "checkbox";
-            completeCheckbox.checked = Boolean(
-                completedTopics[topicKey]
-            );
+            const row = document.createElement("div");
+            row.className = "topic";
 
-            const completeText = document.createElement("span");
-            completeText.textContent = "Done";
+            if (data.done) row.classList.add("completed");
 
-            completeCheckbox.addEventListener("change", () => {
+            const name = document.createElement("span");
+            name.className = "topic-name";
+            name.textContent = topic;
 
-                if (completeCheckbox.checked) {
-                    completedTopics[topicKey] = true;
-                } else {
-                    delete completedTopics[topicKey];
+            const doneLabel = document.createElement("label");
+            const done = document.createElement("input");
+            done.type = "checkbox";
+            done.checked = data.done;
+
+            done.addEventListener("change", () => {
+                progress[key].done = done.checked;
+
+                // Reset revision if topic is unchecked
+                if (!done.checked) {
+                    progress[key].revised = false;
                 }
 
-                saveProgress();
-                updateProgress();
-                renderUnits();
-
+                save();
+                render();
             });
 
-            completeLabel.appendChild(completeCheckbox);
-            completeLabel.appendChild(completeText);
+            doneLabel.append(done, "Done");
 
-            const revisionLabel = document.createElement("label");
-            revisionLabel.className = "check-control revision";
+            const reviewLabel = document.createElement("label");
+            const review = document.createElement("input");
+            review.type = "checkbox";
+            review.className = "review";
+            review.checked = data.revised;
+            review.disabled = !data.done;
 
-            const revisionCheckbox = document.createElement("input");
-            revisionCheckbox.type = "checkbox";
-            revisionCheckbox.checked = Boolean(
-                revisedTopics[topicKey]
-            );
-
-            const revisionText = document.createElement("span");
-            revisionText.textContent = "Revision";
-
-            revisionCheckbox.addEventListener("change", () => {
-
-                if (revisionCheckbox.checked) {
-                    revisedTopics[topicKey] = true;
-                } else {
-                    delete revisedTopics[topicKey];
-                }
-
-                saveProgress();
-                updateProgress();
-                renderUnits();
-
+            review.addEventListener("change", () => {
+                progress[key].revised = review.checked;
+                save();
+                render();
             });
 
-            revisionLabel.appendChild(revisionCheckbox);
-            revisionLabel.appendChild(revisionText);
+            reviewLabel.append(review, "Revised");
 
-            controls.appendChild(completeLabel);
-            controls.appendChild(revisionLabel);
-
-            label.appendChild(topicName);
-            label.appendChild(controls);
-
-            topicList.appendChild(label);
-
+            row.append(name, doneLabel, reviewLabel);
+            section.appendChild(row);
         });
 
-        unitElement.appendChild(unitHeader);
-        unitElement.appendChild(topicList);
+        const unitPercentage = Math.round(
+            unitCompleted / unitTotal * 100
+        );
 
-        unitsContainer.appendChild(unitElement);
+        const unitInfo = document.createElement("p");
+        unitInfo.className = "unit-progress";
+        unitInfo.textContent =
+            `Completed: ${unitCompleted}/${unitTotal} (${unitPercentage}%)`;
 
+        const bar = document.createElement("div");
+        bar.className = "progress-bar";
+
+        const fill = document.createElement("div");
+        fill.className = "progress-fill";
+        fill.style.width = unitPercentage + "%";
+
+        bar.appendChild(fill);
+
+        section.insertBefore(bar, section.children[1]);
+        section.insertBefore(unitInfo, bar);
+
+        syllabus.appendChild(section);
     });
 
-}
+    const percentage = Math.round(completed / total * 100);
 
-function updateProgress() {
+    document.getElementById("percentage").textContent =
+        percentage + "%";
 
-    const completedCount = Object.values(completedTopics)
-        .filter(Boolean).length;
+    document.getElementById("overallBar").style.width =
+        percentage + "%";
 
-    const revisedCount = Object.values(revisedTopics)
-        .filter(Boolean).length;
-
-    const completionPercentage =
-        (completedCount / totalTopics) * 100;
-
-    const revisionPercentage =
-        (revisedCount / totalTopics) * 100;
-
-    document.getElementById("completionCount").textContent =
-        `${completedCount} / ${totalTopics}`;
-
-    document.getElementById("completionFill").style.width =
-        `${completionPercentage}%`;
+    document.getElementById("count").textContent =
+        `${completed} / ${total} Topics Completed`;
 
     document.getElementById("revisionCount").textContent =
-        `${revisedCount} / ${totalTopics}`;
+        `${revised} Topics Revised`;
 
-    document.getElementById("revisionFill").style.width =
-        `${revisionPercentage}%`;
-
+    save();
 }
 
-renderUnits();
-updateProgress();
+function markAllReviewed() {
+    units.forEach((unit, unitIndex) => {
+        unit.topics.forEach((topic, topicIndex) => {
+            const key = `${unitIndex}-${topicIndex}`;
+
+            if (progress[key] && progress[key].done) {
+                progress[key].revised = true;
+            }
+        });
+    });
+
+    save();
+    render();
+}
+
+function resetProgress() {
+    if (confirm("Are you sure you want to reset all study progress?")) {
+        progress = {};
+        save();
+        render();
+    }
+}
+
+render();
 
 </script>
-
 </body>
 </html>
